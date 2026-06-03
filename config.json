@@ -1,0 +1,21 @@
+{
+  "jira_base_url": "https://jira.gwm.cn",
+  "jira_username": "your_username",
+  "jira_password": "your_password",
+  "bug_id_list": [
+    "SCHL-3731",
+    "SCHL-5207",
+    "SCHL-6437"
+  ],
+  "output_file": "jira_huawei_links_result.csv",
+  "max_linked_depth": 3,
+  "dingtalk": {
+    "app_key": "",
+    "app_secret": "",
+    "agent_id": ""
+  },
+  "dingtalk_webhook": "https://oapi.dingtalk.com/robot/send?access_token=5c9da0ee7be32a9b6f78cc127535d31fbcac5412e1621fcb343371c57da359fa",
+  "group_members": {
+    "谭均水": ""
+  }
+}

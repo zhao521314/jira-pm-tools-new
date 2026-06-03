@@ -1,0 +1,47 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'jira_bug_query_web.py'
+      - 'requirements.txt'
+      - 'config.json'
+      - '.github/workflows/build-exe.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 构建 EXE
+        run: |
+          pyinstaller --onefile --noconsole `
+            --name "PM_Tools" `
+            --add-data "config.json;." `
+            --hidden-import openpyxl `
+            --hidden-import openpyxl.cell `
+            --hidden-import openpyxl.styles `
+            --hidden-import openpyxl.utils `
+            jira_bug_query_web.py
+
+      - name: 上传 EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: PM_Tools_Windows
+          path: dist/PM_Tools.exe
+          retention-days: 30
